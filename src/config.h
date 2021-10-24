@@ -21,6 +21,12 @@
 #include <IRutils.h>
 #include <IRac.h>
 
+
+//Personel Parameters for led ON, and reset button
+const int ledPin = 12;
+const int resetPin = 13;        
+int RESET = 0; 
+
 // ---------------- Start of User Configuration Section ------------------------
 
 #ifndef MQTT_ENABLE
@@ -61,7 +67,8 @@ const uint8_t kNrOfIrTxGpios = 1;
 // Default GPIO the IR LED is connected to/controlled by. GPIO 4 = D2.
 // For an ESP-01 we suggest you use RX/GPIO3/Pin 7. i.e. kDefaultIrLed = 3
 // Note: A value of -1 means unused.
-const int8_t kDefaultIrLed = 0; // <=- CHANGE_ME (optional)
+// const int8_t kDefaultIrLed = 0; // <=- CHANGE_ME (optional) CPB
+const int8_t kDefaultIrLed = 4; // <=- CHANGE_ME (optional)
 
 // **DANGER** Optional flag to invert the output. (default = false)
 //            `false`: The LED is illuminated when the GPIO is HIGH.
@@ -190,7 +197,7 @@ const uint8_t kCaptureTimeout = 15; // Milliseconds
 // Ignore unknown messages with <10 pulses (see also REPORT_UNKNOWNS)
 const uint16_t kMinUnknownSize = 2 * 10;
 #define REPORT_UNKNOWNS false     // Report inbound IR messages that we don't know.
-#define REPORT_RAW_UNKNOWNS false // Report the whole buffer, recommended: 
+#define REPORT_RAW_UNKNOWNS false // Report the whole buffer, recommended: \
                                   // MQTT_BUFFER_SIZE of 1024 or more
 
 // Should we use and report individual A/C settings we capture via IR if we
