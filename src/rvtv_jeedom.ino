@@ -2863,15 +2863,15 @@ void loop(void)
 {
   server.handleClient(); // Handle any web activity
 
-  RESET = digitalRead(resetPin); // Reset button
-  if (RESET == HIGH)
-  {
-    Serial.print("Boton: ");
-    Serial.println(RESET);
-    Serial.println("Restarting ...");
-    delay(1000);
-    ESP.restart();
-  }
+  // RESET = digitalRead(resetPin); // Reset button
+  // if (RESET == HIGH)
+  // {
+  //   Serial.print("Boton: ");
+  //   Serial.println(RESET);
+  //   Serial.println("Restarting ...");
+  //   delay(1000);
+  //   ESP.restart();
+  // }
 
 #if MQTT_ENABLE
   uint32_t now = millis();
