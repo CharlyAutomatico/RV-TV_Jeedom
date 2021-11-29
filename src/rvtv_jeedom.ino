@@ -1748,6 +1748,7 @@ bool parseStringAndSendAirCon(IRsend *irsend, const decode_type_t irType,
     debug("Unexpected AirCon type in send request. Not sent.");
     return false;
   }
+  Serial.println("We were successful as far as we can tell.");
   return true; // We were successful as far as we can tell.
 }
 
@@ -2275,10 +2276,10 @@ void setup(void)
     // Use SERIAL_TX_ONLY so that the RX pin can be freed up for GPIO/IR use.
     Serial.begin(BAUD_RATE, SERIAL_8N1, SERIAL_TX_ONLY);
     pinMode(ledPin, OUTPUT); //Led ON
-#else               // ESP8266
+#else                        // ESP8266
     Serial.begin(BAUD_RATE, SERIAL_8N1);
-#endif              // ESP8266
-    while (!Serial) // Wait for the serial connection to be establised.
+#endif                       // ESP8266
+    while (!Serial)          // Wait for the serial connection to be establised.
       delay(50);
     Serial.println();
     debug("IRMQTTServer " _MY_VERSION_ " has booted.");
@@ -3071,10 +3072,15 @@ bool sendIRCode(IRsend *irsend, decode_type_t const ir_type,
     break;
 #endif
   default:                   // Everything else.
-    if (hasACState(ir_type)) // protocols with > 64 bits
+    if (hasACState(ir_type))
+    { // protocols with > 64 bits
       success = parseStringAndSendAirCon(irsend, ir_type, code_str);
-    else // protocols with <= 64 bits
+      Serial.println("parseado");
+    }
+
+    else{ // protocols with <= 64 bits
       success = irsend->send(ir_type, code, bits, repeat);
+   }
   }
 #if IR_RX && DISABLE_CAPTURE_WHILE_TRANSMITTING
   // Turn IR capture back on if we need to.
@@ -3120,6 +3126,10 @@ bool sendIRCode(IRsend *irsend, decode_type_t const ir_type,
                                               String(code_str))
                                                  .c_str());
       mqttSentCounter++;
+      // Led ON - AC - cpb
+      digitalWrite(ledPin, HIGH);
+      delay(100);
+      digitalWrite(ledPin, LOW);
     }
 #endif // MQTT_ENABLE
   }
