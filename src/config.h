@@ -21,11 +21,10 @@
 #include <IRutils.h>
 #include <IRac.h>
 
-
 //Personel Parameters for led ON, and reset button
 const int ledPin = 12;
-const int ##Pin = 13;        
-int RESET = 0; 
+const int resetPin = 13;
+int RESET = 0;
 
 // ---------------- Start of User Configuration Section ------------------------
 
@@ -84,7 +83,7 @@ const int8_t kDefaultIrRx = 14; // <=- CHANGE_ME (optional) cpb
 
 // Enable/disable receiving/decoding IR messages entirely.
 // Note: IR_RX costs about 40k+ of program memory.
-#define IR_RX true
+#define IR_RX false
 
 // Should we use PULLUP on the IR Rx gpio?
 #define IR_RX_PULLUP false
